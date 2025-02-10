@@ -6,7 +6,6 @@ import SignUp from "./SignUp/page";
 export default function Home() {
   const [isSignIn, setIsSignIn] = useState(true); // true para Sign In, false para Sign Up
 
-  // Función para alternar entre Sign In y Sign Up
   const toggleView = () => setIsSignIn((prev) => !prev);
 
   return (

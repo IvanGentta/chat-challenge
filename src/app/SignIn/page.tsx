@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/store"; // Asegúrate de tener definido el tipo AppDispatch
+import { AppDispatch } from "@/store";
 import { loginThunk, resetPasswordThunk } from "@/firebase/auth";
 
 export default function SignIn({ toggleView }: { toggleView: () => void }) {
@@ -20,12 +20,14 @@ export default function SignIn({ toggleView }: { toggleView: () => void }) {
     setError("");
 
     try {
-      // Despacha el thunk de login. Se envuelve la acción con unwrap() para obtener el resultado o error.
       await dispatch(loginThunk({ email, password })).unwrap();
-      router.push("/chat"); // Redirige al chat después del login
-    } catch (err: any) {
-      // Puedes ajustar el manejo del error según lo que retorne tu thunk
-      setError(err);
+      router.push("/chat");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("An unknown error occurred");
+      }
     }
   };
 
@@ -34,12 +36,15 @@ export default function SignIn({ toggleView }: { toggleView: () => void }) {
     setSuccessMessage("");
 
     try {
-      // Despacha el thunk de resetPassword
       await dispatch(resetPasswordThunk(resetEmail)).unwrap();
       setSuccessMessage("Password reset email sent successfully.");
       setShowResetModal(false);
-    } catch (err: any) {
-      setError(err);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("An unknown error occurred");
+      }
     }
   };
 

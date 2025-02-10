@@ -19,7 +19,6 @@ export default function Chat() {
   const messages = useSelector((state: RootState) => state.messages.messages);
   const messagesEndRef = useRef<HTMLDivElement>(null); // Ref para el final de la lista
 
-  // Obtenemos el usuario autenticado
   useEffect(() => {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -32,7 +31,6 @@ export default function Chat() {
     return unsubscribe;
   }, []);
 
-  // Suscribirse a los mensajes en tiempo real
   useEffect(() => {
     const unsubscribe = subscribeToMessages((msgs) => {
       dispatch(setMessages(msgs));
@@ -51,7 +49,7 @@ export default function Chat() {
     if (messageText.trim() === "" || !currentUser?.email) return; // No enviar mensajes vacíos
     try {
       await sendMessage(messageText, currentUser.email);
-      setMessageText(""); // Limpiar el input después de enviar
+      setMessageText("");
     } catch (error) {
       console.error("Error sending message:", error);
     }
@@ -60,7 +58,7 @@ export default function Chat() {
   return (
     <div className="w-full h-full flex justify-center items-center p-4">
       <div className="flex-grow flex flex-col bg-chatExtra2 rounded-2xl border-8 border-chatBorder min-w-[300px] h-[500px] max-w-[800px] md:h-[650px]">
-        {/* Área para mostrar mensajes */}
+        {/* area mensajes */}
         <div className="flex-1 overflow-y-auto p-4">
           {messages.map((msg: Message) => (
             <div
@@ -80,11 +78,11 @@ export default function Chat() {
               <p className="text-black">{msg.text}</p>
             </div>
           ))}
-          {/* Elemento vacío para scrollear */}
+          {/* div vacío para scrollear */}
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Formulario para enviar mensaje */}
+        {/* formulario para enviar mensaje */}
         <div className="flex items-center w-full p-2 text-black">
           <input
             type="text"

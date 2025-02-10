@@ -9,6 +9,7 @@ import {
 } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import firebaseConfig from "../../firebaseConfig";
+import { Message } from "../../types";
 
 const app = initializeApp(firebaseConfig);
 
@@ -18,13 +19,13 @@ export const sendMessage = async (
   text: string,
   email: string
 ): Promise<void> => {
-  if (!text.trim()) return; // Evitamos enviar mensajes vacíos
+  if (!text.trim()) return; // no mensajes vacios
 
   try {
     await addDoc(collection(db, "messages"), {
       text,
-      user: { email }, // Guardamos el email dentro de un objeto user
-      createdAt: Timestamp.now(), // Timestamp de Firestore
+      user: { email }, // mail guardado dentro de user
+      createdAt: Timestamp.now(),
     });
   } catch (error) {
     console.error("Error adding message: ", error);
@@ -32,7 +33,9 @@ export const sendMessage = async (
   }
 };
 
-export const subscribeToMessages = (callback: (messages: any[]) => void) => {
+export const subscribeToMessages = (
+  callback: (messages: Message[]) => void
+) => {
   const messagesQuery = query(
     collection(db, "messages"),
     orderBy("createdAt", "asc")
@@ -48,7 +51,7 @@ export const subscribeToMessages = (callback: (messages: any[]) => void) => {
           data.createdAt instanceof Timestamp
             ? data.createdAt.toDate().toISOString()
             : null,
-      };
+      } as Message;
     });
 
     callback(messages);

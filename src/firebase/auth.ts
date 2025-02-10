@@ -5,12 +5,13 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
-  UserCredential,
 } from "firebase/auth";
 import firebaseConfig from "../../firebaseConfig";
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+
+// Thunk = en vuelve funciones para retrasarlas ligeramente y mientras manejarlas de forma asincronica para despachar acciones antes y después de la operacion
 
 // Thunk para login
 export const loginThunk = createAsyncThunk(
@@ -61,7 +62,6 @@ export const resetPasswordThunk = createAsyncThunk(
   async (email: string, { rejectWithValue }) => {
     try {
       await sendPasswordResetEmail(auth, email);
-      // Puedes retornar un mensaje o simplemente undefined si no necesitas payload
       return;
     } catch (error) {
       return rejectWithValue(

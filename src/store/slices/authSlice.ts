@@ -31,7 +31,6 @@ const authSlice = createSlice({
     logout(state) {
       state.user = null;
     },
-    // Acciones para registro:
     registerStart(state) {
       state.loading = true;
       state.error = null;
@@ -47,7 +46,6 @@ const authSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    // Acciones para resetPassword (si deseas trackear su estado)
     resetPasswordStart(state) {
       state.loading = true;
       state.error = null;
@@ -61,18 +59,5 @@ const authSlice = createSlice({
     },
   },
 });
-
-// export const {
-//   loginStart,
-//   loginSuccess,
-//   loginFailure,
-//   logout,
-//   registerStart,
-//   registerSuccess,
-//   registerFailure,
-//   resetPasswordStart,
-//   resetPasswordSuccess,
-//   resetPasswordFailure,
-// } = authSlice.actions;
 
 export default authSlice.reducer;
