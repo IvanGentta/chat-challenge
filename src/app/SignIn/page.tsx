@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store";
 import { loginThunk, resetPasswordThunk } from "@/firebase/auth";
 
-export default function SignIn({ toggleView }: { toggleView: () => void }) {
+export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -88,7 +88,7 @@ export default function SignIn({ toggleView }: { toggleView: () => void }) {
       <p className="text-center text-xl text-black mt-4">
         New here?{" "}
         <span
-          onClick={toggleView}
+          onClick={() => router.push("/SignUp")}
           className="underline cursor-pointer decoration-blue-500"
         >
           Sign Up here.

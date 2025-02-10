@@ -5,7 +5,7 @@ import { registerThunk } from "@/firebase/auth";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store";
 
-export default function SignUp({ toggleView }: { toggleView: () => void }) {
+export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -76,7 +76,7 @@ export default function SignUp({ toggleView }: { toggleView: () => void }) {
         Already have an account?
         <br />
         <span
-          onClick={toggleView}
+          onClick={() => router.push("/SignIn")}
           className="underline cursor-pointer decoration-blue-500"
         >
           Sign In here.
