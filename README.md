@@ -7,6 +7,7 @@ This is a simple chat application built with **Next.js**, **Tailwind CSS**, **Fi
 The app features:
 
 - **User Authentication:** Sign up and Sign in with email and password using Firebase Authentication.
+- **Forgot Password?:** You can ask for an email to reset your password.
 - **Realtime Chat:** After signing in, users can chat in real time. Messages are stored in Firebase Firestore and are updated instantly across clients.
 - **State Management:** Redux is used to manage the authentication state as well as the list of messages.
 - **Responsive Design:** The UI is built with Next.js and styled using Tailwind CSS, full responsive
